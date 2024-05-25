@@ -1,0 +1,70 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+
+//using namespace std;
+
+int main()
+{
+    const int SUBJECT = 4,STUDENT = 5;
+    std::string name[STUDENT];
+    char grade[STUDENT];
+    double score[STUDENT][SUBJECT];
+    double average[STUDENT];
+
+    for (int i = 0; i < STUDENT;i++)
+    {
+        std::cout << "Enter the name of student " << i+1 << " : " << std::endl;
+        getline (std::cin,name[i]);
+    }
+
+    for (int i = 0; i < STUDENT; i++)
+    {
+        double sum = 0;
+        for (int j = 0; j < SUBJECT; j++)
+        {
+            std::cout << "Enter the test scores of subject "<<j+1<<" for "<<name[i]<<": ";
+            std::cin >> score[i][j];
+
+            while (score[i][j] < 0||score[i][j] > 100)
+            {
+                std::cout<<"Invalid test score! Test scores can't be less than 0 or greater than 100." << "\n";
+                std::cout<<"Enter again the test scores of subject " << j+1 << ": ";
+                std::cin >> score[i][j];
+            }
+            sum += score[i][j];
+        }
+        average[i] = sum / SUBJECT;
+    }
+
+    std::cout << std::setw(30) << "Student's name" << std::setw(25) << "Average test score" << std::setw(18) << "Letter Grade" << "\n";
+    std::cout<<"------------------------------------------------------------------------------------------" << "\n";
+
+    for (int i = 0;i < STUDENT; i++)
+    {
+        if (average[i]>=90)
+            {
+                grade[i]='A';
+            }
+            else if (average[i]<90 && average[i]>=80)
+            {
+                grade[i]='B';
+            }
+            else if (average[i]<80 && average[i]>=70)
+            {
+                grade[i]='C';
+            }
+            else if (average[i]<70 && average[i]>=60)
+            {
+                grade[i]='D';
+            }
+            else
+            {
+                grade[i]='F';
+            }
+
+            std::cout<<std::setw(30)<<name[i]<<std::setw(25)<<average[i]<<std::setw(20)<<grade[i]<<"\n";
+    }
+
+  return 0;
+}
